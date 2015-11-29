@@ -1,0 +1,11 @@
+citHeader("To cite rutilsfastqc in publications use:")
+
+citEntry(entry = "Misc",
+  title        = "Utilitary functions to handle output from FastQC in {rutilsfastqc}",
+  author       = personList(as.person(c("Timothee Flutre","Nicolas Rode"))),
+  url          = "https://github.com/timflutre/rutilsfastqc",
+
+  textVersion  =
+  paste("Utilitary functions to handle output from FastQC.",
+        "URL https://github.com/timflutre/rutilsfastqc.")
+)

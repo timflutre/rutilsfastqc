@@ -1,0 +1,13 @@
+Package: rutilsfastqc
+Title: Utilitary functions to handle output from FastQC
+Version: 0.1.0
+Authors@R: c(
+           person("Timothee", "Flutre", email = "timothee.flutre@supagro.inra.fr", role = c("cre", "aut")),
+           person("Nicolas", "Rode", email = "nicolas.rode@supagro.inra.fr", role = c("ctb")))
+Description: Read zip archives from FastQC, extract information, and plot it.
+Depends: R (>= 3.0.0)
+License: GPL-3
+Copyright: Institut National de la Recherche Agronomique (INRA)
+LazyData: true
+URL: https://github.com/timflutre/rutilsfastqc
+BugReports: https://github.com/timflutre/rutilsfastqc/issues

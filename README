@@ -1,0 +1,34 @@
+Package "rutilsfastqc"
+======================
+
+This directory contains the "rutilsfastqc" package for the R programming
+language. This package contains utilitary functions to handle output from
+FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/). The
+development is funded by the Institut National de la Recherche Agronomique
+(INRA).
+
+The copyright is owned by the INRA. See the COPYING file for usage
+permissions.
+
+The content of this directory is versioned using git, the central
+repository being hosted on GitHub:
+https://github.com/timflutre/rutilsfastqc
+
+I, and others, have invested some time and effort in creating this package,
+please cite it when using it for data analysis:
+R> citation("rutilsfastqc")
+See also citation() for citing R itself.
+
+For users, you can directly install the package from GitHub:
+R> library(devtools); install_github("timflutre/rutilsfastqc")
+Otherwise, when retrieving the bundled package (that is, as a tar.gz),
+you can install it from the command-line via:
+$ R CMD INSTALL rutilsfastqc_<version>.tar.gz
+or directly from inside R via:
+R> install.packages("path/to/rutilsfastqc_<version>.tar.gz")
+
+For developpers, when editing the content of this repo, increment the version
+of the package in DESCRIPTION and execute the following commands:
+$ Rscript -e 'library(devtools); devtools::document()'
+$ R CMD build rutilsfastqc
+$ R CMD check rutilsfastqc_<version>.tar.gz
