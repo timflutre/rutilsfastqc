@@ -1,6 +1,6 @@
 Package: rutilsfastqc
 Title: Utilitary functions to handle output from FastQC
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
            person("Timothee", "Flutre", email = "timothee.flutre@supagro.inra.fr", role = c("cre", "aut")),
            person("Nicolas", "Rode", email = "nicolas.rode@supagro.inra.fr", role = c("ctb")))

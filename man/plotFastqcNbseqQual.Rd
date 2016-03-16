@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plotFastqcNbseqQual}
 \alias{plotFastqcNbseqQual}
-\title{Plot the number, or percentage, of sequences per quality score with one curve per dataset.}
+\title{Plot FastQC}
 \usage{
 plotFastqcNbseqQual(qual, perc = FALSE, ylim = NULL,
   max.datasets.per.plot = 25, main = "Quality control",
@@ -32,6 +32,7 @@ plotFastqcNbseqQual(qual, perc = FALSE, ylim = NULL,
 nothing
 }
 \description{
+Plot the number, or percentage, of sequences per quality score with one curve per dataset.
 To be used after extractFastqcQuals().
 }
 \author{
