@@ -36,64 +36,71 @@ readFastqcTxt <- function(file){
 ##' Zip archives are decompressed in a temporary directory which is removed afterwards.
 ##' @param path character vector of the path to the directory containing the zip archives (will be followed by "*_fastqc.zip")
 ##' @param glob character vector with wildcard(s) to find zip archives
-##' @param verbose verbosity level
+##' @param verbose verbosity level (0/1/2)
 ##' @return list of lists (one per zip archive)
 ##' @author Timothee Flutre [cre,aut], Nicolas Rode [ctb]
 ##' @export
-readFastqcZips <- function(path=".", glob="*_fastqc.zip", verbose=0){
+readFastqcZips <- function(path=".", glob="*_fastqc.zip", verbose=1){
+  stopifnot(dir.exists(path))
+
   zip.archives <- Sys.glob(paste(path, glob, sep="/"))
+
   if(length(zip.archives) == 0)
     stop("not a single zip archive was found", call.=FALSE)
-  message(paste("nb of zip archives detected:", length(zip.archives)))
+
+  if(verbose > 0)
+    message(paste("nb of zip archives detected:", length(zip.archives)))
 
   all.qc <- lapply(zip.archives, function(zip.archive){
     qc <- NULL
 
     zipdir <- tempfile()
     dir.create(zipdir)
+    if(verbose > 1)
+      message("create tmpdir ", zipdir)
 
-    if(verbose > 0)
-      message(paste0("try to unzip ", zip.archive))
+    if(verbose > 1)
+      message(paste0("try to unzip ", zip.archive, " ..."))
     retval <- tryCatch(
-        {
-          unzip(zip.archive, exdir=zipdir)
-        },
-        warning = function(w){
-          message(paste(basename(zip.archive), "could no be unzipped."))
-          message("Original warning message:")
-          message(paste0(w, ""))
-        },
-        error = function(e){
-          message(paste(basename(zip.archive), "could no be unzipped."))
-          message("Original error message:")
-          message(paste0(e, ""))
-        })
+    {
+      unzip(zip.archive, exdir=zipdir)
+    },
+    warning = function(w){
+      message(paste(basename(zip.archive), "could no be unzipped."))
+      message("Original warning message:")
+      message(paste0(w, ""))
+    },
+    error = function(e){
+      message(paste(basename(zip.archive), "could no be unzipped."))
+      message("Original error message:")
+      message(paste0(e, ""))
+    })
 
     if(! is.null(retval)){
-      if(verbose > 0)
-        message(paste0("try to read fastqc_data.txt"))
+      if(verbose > 1)
+        message(paste0("try to read fastqc_data.txt ..."))
       tryCatch(
-          {
-            f.base <- sub(".zip", "", basename(zip.archive))
-            qc <- readFastqcTxt(paste0(zipdir, "/", f.base, "/fastqc_data.txt"))
-          },
-          warning = function(w){
-            qc <- list(warn="warning")
-            message(paste0(sub(".zip", "", basename(zip.archive)),
-                           ".txt could no be found."))
-            message("Original warning message:")
-            message(paste0(w, ""))
-          },
-          error = function(e){
-            qc <- list(err="error")
-            message(paste0(sub(".zip", "", basename(zip.archive)),
-                           ".txt could no be found."))
-            message("Original error message:")
-            message(paste0(e, 33))
-          })
+      {
+        f.base <- sub(".zip", "", basename(zip.archive))
+        qc <- readFastqcTxt(paste0(zipdir, "/", f.base, "/fastqc_data.txt"))
+      },
+      warning = function(w){
+        qc <- list(warn="warning")
+        message(paste0(sub(".zip", "", basename(zip.archive)),
+                       ".txt could no be found."))
+        message("Original warning message:")
+        message(paste0(w, ""))
+      },
+      error = function(e){
+        qc <- list(err="error")
+        message(paste0(sub(".zip", "", basename(zip.archive)),
+                       ".txt could no be found."))
+        message("Original error message:")
+        message(paste0(e, 33))
+      })
     }
 
-    unlink(zipdir)
+    unlink(zipdir, recursive=TRUE)
     return(qc)
 	})
 

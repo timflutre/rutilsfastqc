@@ -4,14 +4,14 @@
 \alias{readFastqcZips}
 \title{Read FastQC}
 \usage{
-readFastqcZips(path = ".", glob = "*_fastqc.zip", verbose = 0)
+readFastqcZips(path = ".", glob = "*_fastqc.zip", verbose = 1)
 }
 \arguments{
 \item{path}{character vector of the path to the directory containing the zip archives (will be followed by "*_fastqc.zip")}
 
 \item{glob}{character vector with wildcard(s) to find zip archives}
 
-\item{verbose}{verbosity level}
+\item{verbose}{verbosity level (0/1/2)}
 }
 \value{
 list of lists (one per zip archive)
