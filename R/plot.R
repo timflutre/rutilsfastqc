@@ -168,8 +168,11 @@ plotFastqcContent <- function(content,
     plot(x=0, y=0, xlim=xlim, ylim=ylim,
          xlab=xlab, ylab=ylab, main=main,
          type="n", bty="n")
-    for(i in 1:nrow(content))
-      points(x=positions, y=content[i,], col=i, pch=(1:25)[i %% 25], type="b")
+    for(i in 1:nrow(content)){
+      idx <- which(! is.na(content[i,]))
+      points(x=positions[idx], y=content[i, idx],
+             col=i, pch=(1:25)[i %% 25], type="b")
+    }
     if(add.2nd.yaxis)
       axis(side=4)
     if(! is.null(legend.x))
