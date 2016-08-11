@@ -158,9 +158,9 @@ plotFastqcContent <- function(content,
 
   ## determine the lowest and highest content percentage for the y-axis
   if(is.null(lowest.perc))
-    lowest.perc <- min(c(content))
+    lowest.perc <- min(c(content), na.rm=TRUE)
   if(is.null(highest.perc))
-    highest.perc <- max(c(content))
+    highest.perc <- max(c(content), na.rm=TRUE)
   ylim <- c(lowest.perc, highest.perc)
 
   ## plot the data
